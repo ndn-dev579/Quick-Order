@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>order</title>
+    <link rel="stylesheet" href="orderstyle.css">
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Get Table ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const tableno = urlParams.get("table");
+    document.getElementById("table-info").innerText = "Table No: " + (tableno || "Unknown");
+     
+    // Sample Menu Items
+    const menuItems = [
+        { id: 1, name: "Margherita Pizza", price: 250 },
+        { id: 2, name: "Paneer Butter Masala", price: 200 },
+        { id: 3, name: "Masala Dosa", price: 150 }
+    ];
+     
+    const menuDiv = document.querySelector(".menu-items");
+    menuItems.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("item");
+        div.innerHTML = `
+            <h3>${item.name}</h3>
+            <p>₹${item.price}</p>
+            <button onclick="addToCart(${item.id})">Add to Cart</button>
+        `;
+        menuDiv.appendChild(div);
+    });
+    });
+     
+    const cart = [];
+     
+    function addToCart(id) {
+    const item = { id, name: ["Margherita Pizza", "Paneer Butter Masala", "Masala Dosa"][id - 1], price: [250, 200, 150][id - 1] };
+    cart.push(item);
+    updateCart();
+    }
+     
+    function updateCart() {
+    const cartList = document.getElementById("cart-items");
+    cartList.innerHTML = cart.map(item => `<li>${item.name} - ₹${item.price}</li>`).join("");
+    }
+     
+    function placeOrder() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+    alert("Order placed successfully for Table " + new URLSearchParams(window.location.search).get("table"));
+    cart.length = 0;
+    updateCart();
+    }
+    </script>
+</head>
+
+
+<body>
+    <header>
+        <h1>Menu Available</h1>
+        <p id="table-info"></p>
+    </header>
+     
+    <section class="menu-items">
+        <!-- Items will be added dynamically -->
+    </section>
+     
+    <h2>Cart</h2>
+    <ul id="cart-items"></ul>
+    <button id="order-btn" onclick="placeOrder()">Place Order</button>
+    </body>
+    </html>

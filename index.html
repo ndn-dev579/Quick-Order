@@ -1,0 +1,76 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function gotomenu()
+        {   var tableid=document.getElementById(tableno).value;
+            if (tableno){
+                window.location.href="order.html=" + tableno;
+            else
+                    alert("please enter valid ID!");
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to our Restaurant</h1>
+    </header>
+    <main>
+    <form action="order.html" method="POST">
+        <h2>Enter your UNIQUE table Code:</h2>
+        <input type="text" id="tableno"/>
+        <button onclick="gotomenu()">SUBMIT</button>
+    </form>
+
+    
+
+    
+</main>
+
+    
+    
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function gotomenu(event) {
+            event.preventDefault(); // Prevent form from refreshing
+
+            var tableno = document.getElementById("tableno").value.trim(); // Get table number
+
+            if (tableno) {
+                window.location.href = "order.html?table=" + encodeURIComponent(tableno); // Redirect
+            } else {
+                alert("Please enter a valid Table Number!");
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to our Restaurant</h1>
+    </header>
+
+    <main>
+        <form onsubmit="gotomenu(event)">  <!-- Calls gotomenu() when submitted -->
+            <h2>Enter Your UNIQUE Table Number</h2>
+            <input type="text" id="tableno" placeholder="Enter Table Number">
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+</body>
+</html>
